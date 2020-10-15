@@ -7,9 +7,9 @@ public class HotelReservation
 {	
 	List<Hotel> hotelList =new ArrayList<Hotel>();
 	
-	public void addHotel(String hotelName, int hotelRate)
+	public void addHotel(String hotelName, String weekType, int hotelRate)
 	{
-		Hotel hotelObj = new Hotel(hotelName, hotelRate);
+		Hotel hotelObj = new Hotel(hotelName, weekType, hotelRate);
 		hotelList.add(hotelObj);
 	}
 	
@@ -17,7 +17,7 @@ public class HotelReservation
 	{
 		for(Hotel hotelListobj : hotelList)
 		{
-			System.out.println("Hotel Name : " + hotelListobj.getHotelName() + " Rates : " + hotelListobj.getHotelRate());
+			System.out.println("Hotel Name : " + hotelListobj.getHotelName() + " " + hotelListobj.getWeekType() + " Rates : " + hotelListobj.getHotelRate());
 		}
 	}
 	
