@@ -20,4 +20,5 @@ public class HotelReservation
 			System.out.println("Hotel Name : " + hotelListobj.getHotelName() + " Rates : " + hotelListobj.getHotelRate());
 		}
 	}
+	
 }

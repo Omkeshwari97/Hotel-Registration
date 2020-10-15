@@ -26,6 +26,4 @@ public class Hotel
 	public void setHotelRate(int hotelRate) {
 		this.hotelRate = hotelRate;
 	}
-	
-	
 }

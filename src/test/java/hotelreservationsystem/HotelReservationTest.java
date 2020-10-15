@@ -14,4 +14,5 @@ public class HotelReservationTest
 		hotelReservationobj.addHotel("Ridgewood", 220);
 		hotelReservationobj.displayHotel();
 	}
+	
 }
