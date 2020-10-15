@@ -21,4 +21,28 @@ public class HotelReservation
 		}
 	}
 	
+	public Hotel findCheapestHotel(LocalDate ...dates)
+	{
+		Hotel obj = null;
+		int rate = 0;
+		int min = 99999;
+		
+		for(Hotel hotelListobj : hotelList)
+		{
+			rate = 0;
+			for(LocalDate date : dates)
+			{
+				rate = rate + hotelListobj.getHotelRate();
+			}
+			
+			if(rate < min)
+			{
+				min = rate;				
+				obj = hotelListobj;
+			}
+		}
+		
+		System.out.println("Cheapest Hotel Name : " + obj.getHotelName() + " Total Rates : " + min);
+		return obj;
+	}
 }
