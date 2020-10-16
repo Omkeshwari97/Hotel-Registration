@@ -3,6 +3,7 @@ package hotelreservationsystem;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.util.Map.Entry;
 
 import org.junit.Test;
 
@@ -24,13 +25,16 @@ public class HotelReservationTest
 		
 		hotelReservationobj.displayHotel();
 		
-		  int numOfDates = 2; LocalDate date1 = LocalDate.of(2020, 9, 11); LocalDate
-		  date2 = LocalDate.of(2020, 9, 12);
+		  int numOfDates = 2; 
 		  
-		  int totalRate = hotelReservationobj.findCheapestHotel(date1, date2);
+		  LocalDate date1 = LocalDate.of(2020, 9, 11); 
+		  LocalDate date2 = LocalDate.of(2020, 9, 12);
 		  
-		  assertEquals(200, totalRate);
-		 
+		  Entry<String, Integer> obj = hotelReservationobj.cheapestBestRatedHotel(date1, date2); 
+		  
+		  assertEquals("Bridgewood", obj.getKey());
+		  assertEquals(4, (int)obj.getValue());
 	}
+
 	
 }

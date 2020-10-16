@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 public class HotelReservation 
 {	
+	public int min = 999999;
 	List<Hotel> weekendHotelList = new ArrayList<Hotel>();
 	List<Hotel> weekdayHotelList = new ArrayList<Hotel>();
 	Map<Integer, List<Hotel>> dayHotelMap = new HashMap<Integer, List<Hotel>>();
@@ -47,8 +48,6 @@ public class HotelReservation
 	{
 		int countWeekend = 0, countWeekday = 0;
 		int rateWeekend = 0, rateWeekday = 0;
-		int min = 999999;
-		int maxRating = 0;
 		int totalRate = 0;
 		String hName = null;
 		
@@ -120,5 +119,28 @@ public class HotelReservation
 		}
 		
 		return 0;
+	}
+	
+	public Entry<String, Integer> cheapestBestRatedHotel(LocalDate ...dates)
+	{
+		findCheapestHotel(dates);
+		
+		int maxrating = 0;
+		Entry<String, Integer> obj = null;
+		
+		for(Entry<String, Integer> objrate : totalRateMap.entrySet())
+		{
+			for(Entry<String, Integer> objrating : hotelRatingMap.entrySet())
+			{
+				if(objrate.getValue() == min && objrating.getValue() > maxrating && objrate.getKey() == objrating.getKey())
+				{
+					obj = objrating;
+					maxrating = objrating.getValue();
+				}
+			}
+		}
+		
+		System.out.println("Cheapest Best Rated Hotel Name : " + obj.getKey() + "Rating : " + obj.getValue() + " Total Rates : " + min);
+		return obj;
 	}
 }
