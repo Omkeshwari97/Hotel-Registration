@@ -7,10 +7,11 @@ import java.util.Map.Entry;
 
 public class HotelReservation 
 {	
-	String hotelName[] = {"Lakewood", "Bridgewood", "Ridgewood"};
 	List<Hotel> weekendHotelList = new ArrayList<Hotel>();
 	List<Hotel> weekdayHotelList = new ArrayList<Hotel>();
 	Map<Integer, List<Hotel>> dayHotelMap = new HashMap<Integer, List<Hotel>>();
+	Map<String, Integer> hotelRatingMap = new HashMap<String, Integer>();
+	Map<String, Integer> totalRateMap = new HashMap<String, Integer>();
 	
 	public void addHotel(String hotelName, String weekType, int hotelRate, int rating)
 	{
@@ -24,6 +25,7 @@ public class HotelReservation
 		
 		dayHotelMap.put(1, weekdayHotelList);
 		dayHotelMap.put(2, weekendHotelList);
+		hotelRatingMap.put(hotelName, rating);
 	}
 	
 	public void displayHotel()
@@ -46,6 +48,7 @@ public class HotelReservation
 		int countWeekend = 0, countWeekday = 0;
 		int rateWeekend = 0, rateWeekday = 0;
 		int min = 999999;
+		int maxRating = 0;
 		int totalRate = 0;
 		String hName = null;
 		
@@ -61,18 +64,26 @@ public class HotelReservation
 			}
 		}
 		
-		for(String hotelNameobj : hotelName)
+		for(Entry<String, Integer> obj : hotelRatingMap.entrySet())
 		{
-			rateWeekday = getWeekendRate(hotelNameobj);
-			rateWeekend = getWeekdayRate(hotelNameobj);
+			rateWeekday = getWeekendRate(obj.getKey());
+			rateWeekend = getWeekdayRate(obj.getKey());
 			
 			totalRate = countWeekday * rateWeekday + countWeekend * rateWeekend;
-			
+
 			if(totalRate <= min)
 			{
 				min = totalRate;
-				hName = hotelNameobj;
-				System.out.println("Cheapest Hotel Name : " + hName + " Total Rates : " + min);
+				hName = obj.getKey();
+				totalRateMap.put(hName, min);
+			}
+		}
+		
+		for(Entry<String, Integer> obj : totalRateMap.entrySet())
+		{
+			if(obj.getValue() == min)
+			{
+				System.out.println("Cheapest Hotel Name : " + obj.getKey() + " Total Rates : " + obj.getValue());
 			}
 		}
 		
