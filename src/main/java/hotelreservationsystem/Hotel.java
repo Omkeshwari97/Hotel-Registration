@@ -6,11 +6,10 @@ public class Hotel
 	private int hotelRate;
 	private String weekType;
 	
-	public Hotel(String hotelName, String weekType, int hotelRate)
+	public Hotel(String hotelName, int hotelRate)
 	{
 		this.hotelName = hotelName;
 		this.hotelRate = hotelRate;
-		this.setWeekType(weekType);
 	}
 	
 	public String getHotelName() {

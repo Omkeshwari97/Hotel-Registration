@@ -1,48 +1,111 @@
 package hotelreservationsystem;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.Map.Entry;
 
 public class HotelReservation 
 {	
-	List<Hotel> hotelList =new ArrayList<Hotel>();
+	String hotelName[] = {"Lakewood", "Bridgewood", "Ridgewood"};
+	
+	List<Hotel> weekendHotelList = new ArrayList<Hotel>();
+	List<Hotel> weekdayHotelList = new ArrayList<Hotel>();
+	Map<Integer, List<Hotel>> dayHotelMap = new HashMap<Integer, List<Hotel>>();
 	
 	public void addHotel(String hotelName, String weekType, int hotelRate)
 	{
-		Hotel hotelObj = new Hotel(hotelName, weekType, hotelRate);
-		hotelList.add(hotelObj);
+		Hotel hotelObj = new Hotel(hotelName, hotelRate);
+		
+		if(weekType.equals("weekend"))
+			weekendHotelList.add(hotelObj);
+		
+		if(weekType.equals("weekday"))
+			weekdayHotelList.add(hotelObj);
+		
+		dayHotelMap.put(1, weekdayHotelList);
+		dayHotelMap.put(2, weekendHotelList);
 	}
 	
 	public void displayHotel()
 	{
-		for(Hotel hotelListobj : hotelList)
+		for(Entry<Integer, List<Hotel>> e : dayHotelMap.entrySet())
 		{
-			System.out.println("Hotel Name : " + hotelListobj.getHotelName() + " " + hotelListobj.getWeekType() + " Rates : " + hotelListobj.getHotelRate());
+			for(Hotel hobj : e.getValue())
+			{
+				System.out.println("Hotel Name : " + hobj.getHotelName() + " " + e.getKey() + " Rates : " + hobj.getHotelRate());
+			}
 		}
 	}
 	
-	public Hotel findCheapestHotel(LocalDate ...dates)
+	public int findCheapestHotel(LocalDate ...dates)
 	{
-		Hotel obj = null;
-		int rate = 0;
-		int min = 99999;
+		int countWeekend = 0, countWeekday = 0;
+		int rateWeekend = 0, rateWeekday = 0;
+		int min = 999999;
+		int totalRate = 0;
+		String hName = null;
 		
-		for(Hotel hotelListobj : hotelList)
+		for(LocalDate date : dates)
 		{
-			rate = 0;
-			for(LocalDate date : dates)
+			if(date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)
 			{
-				rate = rate + hotelListobj.getHotelRate();
+				countWeekend ++;
 			}
-			
-			if(rate < min)
+			else
 			{
-				min = rate;				
-				obj = hotelListobj;
+				countWeekday ++;
 			}
 		}
 		
-		System.out.println("Cheapest Hotel Name : " + obj.getHotelName() + " Total Rates : " + min);
-		return obj;
+		for(String hotelNameobj : hotelName)
+		{
+			rateWeekday = getWeekendRate(hotelNameobj);
+			rateWeekend = getWeekdayRate(hotelNameobj);
+			
+			totalRate = countWeekday * rateWeekday + countWeekend * rateWeekend;
+			
+			if(totalRate < min)
+			{
+				min = totalRate;
+				hName = hotelNameobj;
+			}
+		}
+		
+		System.out.println("Cheapest Hotel Name : " + hName + " Total Rates : " + min);
+		
+		return min;
+	}
+	
+	public int getWeekdayRate(String hotelName) 
+	{
+		for(Entry<Integer, List<Hotel>> e : dayHotelMap.entrySet())
+		{
+			for(Hotel hobj : e.getValue())
+			{
+				if(hotelName.equals(hobj.getHotelName()) && e.getKey().equals(1))
+				{
+					return hobj.getHotelRate();
+				}		
+			}
+		}
+		
+		return 0;
+	}
+	
+	public int getWeekendRate(String hotelName) 
+	{
+		for(Entry<Integer, List<Hotel>> e : dayHotelMap.entrySet())
+		{
+			for(Hotel hobj : e.getValue())
+			{				
+				if(hotelName.equals(hobj.getHotelName()) && e.getKey().equals(2))
+				{
+					return hobj.getHotelRate();
+				}
+			}
+		}
+		
+		return 0;
 	}
 }
