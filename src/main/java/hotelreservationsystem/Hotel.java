@@ -4,12 +4,13 @@ public class Hotel
 {
 	private String hotelName;
 	private int hotelRate;
-	private String weekType;
+	private int rating;
 	
-	public Hotel(String hotelName, int hotelRate)
+	public Hotel(String hotelName, int hotelRate, int rating)
 	{
 		this.hotelName = hotelName;
 		this.hotelRate = hotelRate;
+		this.rating = rating;
 	}
 	
 	public String getHotelName() {
@@ -28,11 +29,13 @@ public class Hotel
 		this.hotelRate = hotelRate;
 	}
 
-	public String getWeekType() {
-		return weekType;
+	public int getRating() 
+	{
+		return rating;
 	}
-
-	public void setWeekType(String weekType) {
-		this.weekType = weekType;
+	
+	public void setRating(int rating) 
+	{
+		this.rating = rating;
 	}
 }

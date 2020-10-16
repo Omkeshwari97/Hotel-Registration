@@ -13,9 +13,9 @@ public class HotelReservation
 	List<Hotel> weekdayHotelList = new ArrayList<Hotel>();
 	Map<Integer, List<Hotel>> dayHotelMap = new HashMap<Integer, List<Hotel>>();
 	
-	public void addHotel(String hotelName, String weekType, int hotelRate)
+	public void addHotel(String hotelName, String weekType, int hotelRate, int rating)
 	{
-		Hotel hotelObj = new Hotel(hotelName, hotelRate);
+		Hotel hotelObj = new Hotel(hotelName, hotelRate, rating);
 		
 		if(weekType.equals("weekend"))
 			weekendHotelList.add(hotelObj);
@@ -33,7 +33,11 @@ public class HotelReservation
 		{
 			for(Hotel hobj : e.getValue())
 			{
-				System.out.println("Hotel Name : " + hobj.getHotelName() + " " + e.getKey() + " Rates : " + hobj.getHotelRate());
+				if(e.getKey() == 1)
+					System.out.println("Hotel Name : " + hobj.getHotelName() + " WeekDay " + " Rates : " + hobj.getHotelRate() + " Rating : " + hobj.getRating());
+				
+				if(e.getKey() == 2)
+					System.out.println("Hotel Name : " + hobj.getHotelName() + " WeekEnd " + " Rates : " + hobj.getHotelRate() + " Rating : " + hobj.getRating());
 			}
 		}
 	}
