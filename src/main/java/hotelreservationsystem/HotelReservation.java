@@ -181,4 +181,45 @@ public class HotelReservation
 		
 		return rateObj.getKey();
 	}
+	
+	
+	public static String getCustomerType() 
+	{
+		String customerType = null;
+		Scanner scanner = new Scanner(System.in);
+		int flag = 0;
+		
+		do 
+		{
+			flag = 0;
+			System.out.println("Enter customer type regular/reward : ");
+			customerType = scanner.next();
+			
+			if(!customerType.equals("regular") && !customerType.equals("reward"))
+			{
+				flag = 1;
+				System.out.println("Invalid input!");
+			}
+		} while (flag == 1);
+	
+		return customerType;
+	}
+	
+	public static String getDate()
+	{
+		int choice = 0;
+		String day, month, year;
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Enter date : ");
+		System.out.println("Enter Day DD : ");
+		day = scanner.next();
+		System.out.println("Enter Month MM : ");
+		month = scanner.next();
+		System.out.println("Enter Year YYYY");
+		year = scanner.next();
+
+		return year+month+day;
+	}
 }
