@@ -143,4 +143,42 @@ public class HotelReservation
 		System.out.println("Cheapest Best Rated Hotel Name : " + obj.getKey() + "Rating : " + obj.getValue() + " Total Rates : " + min);
 		return obj;
 	}
+	
+	public String bestratedHotel(LocalDate ...dates) 
+	{
+		int countWeekend = 0, countWeekday = 0;
+		int rateWeekend = 0, rateWeekday = 0;
+		int totalRate, maxRating = 0;
+		Entry<String, Integer> rateObj = null;
+		
+		for(LocalDate date : dates)
+		{
+			if(date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)
+			{
+				countWeekend ++;
+			}
+			else
+			{
+				countWeekday ++;
+			}
+		}
+		
+		for(Entry<String, Integer> obj : hotelRatingMap.entrySet())
+		{
+			if(obj.getValue() > maxRating)
+			{
+				maxRating = obj.getValue();
+				rateObj = obj;
+			}
+		}
+		
+		rateWeekday = getWeekdayRate(rateObj.getKey());
+		rateWeekend = getWeekendRate(rateObj.getKey());
+		
+		totalRate = countWeekday * rateWeekday + countWeekend * rateWeekend; 
+		
+		System.out.println("Best Rated Hotel : " + rateObj.getKey() + " Total Rates : " + totalRate);
+		
+		return rateObj.getKey();
+	}
 }
