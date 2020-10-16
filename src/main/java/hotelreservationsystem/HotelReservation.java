@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 public class HotelReservation 
 {	
 	String hotelName[] = {"Lakewood", "Bridgewood", "Ridgewood"};
-	
 	List<Hotel> weekendHotelList = new ArrayList<Hotel>();
 	List<Hotel> weekdayHotelList = new ArrayList<Hotel>();
 	Map<Integer, List<Hotel>> dayHotelMap = new HashMap<Integer, List<Hotel>>();
@@ -69,14 +68,13 @@ public class HotelReservation
 			
 			totalRate = countWeekday * rateWeekday + countWeekend * rateWeekend;
 			
-			if(totalRate < min)
+			if(totalRate <= min)
 			{
 				min = totalRate;
 				hName = hotelNameobj;
+				System.out.println("Cheapest Hotel Name : " + hName + " Total Rates : " + min);
 			}
 		}
-		
-		System.out.println("Cheapest Hotel Name : " + hName + " Total Rates : " + min);
 		
 		return min;
 	}
